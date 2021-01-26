@@ -75,7 +75,7 @@ ENABLE_RESEARCH_QUEUE = true
 -- This enables coin drops from enemies and a shop (GUI) to buy stuff from.
 ENABLE_COIN_SHOP = false
 
--- Enable item & energy sharing system. 
+-- Enable item & energy sharing system.
 ENABLE_ITEM_AND_ENERGY_SHARING = false -- REQUIRES ENABLE_COIN_SHOP=true!
 
 -- Enable magic chunks around the map that let you buy powerful factories that smelt/assemble/process very very quickly.
@@ -85,7 +85,7 @@ ENABLE_MAGIC_FACTORIES = false -- REQUIRES ENABLE_COIN_SHOP=true!
 -- Not 100% guaranteed.
 ENABLE_OFFLINE_PROTECTION = true
 
--- This allows you to set the tech price multiplier for the game, but 
+-- This allows you to set the tech price multiplier for the game, but
 -- have it only affect the main force. We just pad all non-main forces lab prod bonus.
 -- This has no effect unless the tech multiplier is more than 1!
 ENABLE_FORCE_LAB_PROD_BONUS = true
@@ -456,4 +456,4 @@ SILO_ISLANDS_MODE = false
 
 -- This is part of regrowth, and if both are enabled, any chunks which aren't active and have no entities will
 -- eventually be deleted over time. DO NOT USE THIS WITH MODS!
-ENABLE_WORLD_EATER = false 
+ENABLE_WORLD_EATER = false
