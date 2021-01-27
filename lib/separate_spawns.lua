@@ -9,11 +9,11 @@ require("config")
 local crash_site = require("crash-site")
 
 --[[
-  ___  _  _  ___  _____ 
+  ___  _  _  ___  _____
  |_ _|| \| ||_ _||_   _|
-  | | | .` | | |   | |  
- |___||_|\_||___|  |_|  
-                        
+  | | | .` | | |   | |
+ |___||_|\_||___|  |_|
+
 --]]
 
 -- Initializes the globals used to track the special spawn and player
@@ -105,11 +105,11 @@ end
 
 
 --[[
-  ___  _       _ __   __ ___  ___     ___  ___  ___  ___  ___  ___  ___  ___ 
+  ___  _       _ __   __ ___  ___     ___  ___  ___  ___  ___  ___  ___  ___
  | _ \| |     /_\\ \ / /| __|| _ \   / __|| _ \| __|/ __||_ _|| __||_ _|/ __|
- |  _/| |__  / _ \\ V / | _| |   /   \__ \|  _/| _|| (__  | | | _|  | || (__ 
+ |  _/| |__  / _ \\ V / | _| |   /   \__ \|  _/| _|| (__  | | | _|  | || (__
  |_|  |____|/_/ \_\|_|  |___||_|_\   |___/|_|  |___|\___||___||_|  |___|\___|
-                                                                             
+
 --]]
 
 -- When a new player is created, present the spawn options
@@ -154,11 +154,11 @@ end
 
 
 --[[
-  ___  ___   _ __      __ _  _     ___  ___  _____  _   _  ___ 
+  ___  ___   _ __      __ _  _     ___  ___  _____  _   _  ___
  / __|| _ \ /_\\ \    / /| \| |   / __|| __||_   _|| | | || _ \
  \__ \|  _// _ \\ \/\/ / | .` |   \__ \| _|   | |  | |_| ||  _/
- |___/|_| /_/ \_\\_/\_/  |_|\_|   |___/|___|  |_|   \___/ |_|  
-                                                               
+ |___/|_| /_/ \_\\_/\_/  |_|\_|   |___/|___|  |_|   \___/ |_|
+
 --]]
 
 -- Add a spawn to the shared spawn global
@@ -263,7 +263,7 @@ function SendPlayerToNewSpawnAndCreateIt(delayedSpawn)
     end
 
     if (global.ocfg.enable_chest_sharing and not delayedSpawn.vanilla) then
-        
+
         local x_dist = global.ocfg.spawn_config.resource_rand_pos_settings.radius
 
         -- Shared electricity IO pair of scripted electric-energy-interfaces
@@ -344,11 +344,11 @@ function DisplayWelcomeGroundTextAtSpawn(player, pos)
 end
 
 --[[
-   ___  _  _  _   _  _  _  _  __     ___  ___  _  _  ___  ___    _  _____  ___  ___   _  _ 
+   ___  _  _  _   _  _  _  _  __     ___  ___  _  _  ___  ___    _  _____  ___  ___   _  _
   / __|| || || | | || \| || |/ /    / __|| __|| \| || __|| _ \  /_\|_   _||_ _|/ _ \ | \| |
  | (__ | __ || |_| || .` || ' <    | (_ || _| | .` || _| |   / / _ \ | |   | || (_) || .` |
   \___||_||_| \___/ |_|\_||_|\_\    \___||___||_|\_||___||_|_\/_/ \_\|_|  |___|\___/ |_|\_|
-                                                                                           
+
 --]]
 
 -- Clear the spawn areas.
@@ -467,7 +467,7 @@ function DowngradeResourcesDistanceBasedOnChunkGenerate(surface, chunkArea)
                 else
                     entity.amount = new_amount
                 end
-            end            
+            end
         end
     end
 end
@@ -534,11 +534,11 @@ end
 
 
 --[[
-   ___  _     ___    _    _  _  _   _  ___ 
+   ___  _     ___    _    _  _  _   _  ___
   / __|| |   | __|  /_\  | \| || | | || _ \
  | (__ | |__ | _|  / _ \ | .` || |_| ||  _/
-  \___||____||___|/_/ \_\|_|\_| \___/ |_|  
-                                           
+  \___||____||___|/_/ \_\|_|\_| \___/ |_|
+
 --]]
 
 
@@ -550,7 +550,7 @@ function ResetPlayerAndDestroyForce(player)
     if ((#player_old_force.players == 0) and (player_old_force.name ~= global.ocfg.main_force)) then
         SendBroadcastMsg("Team " .. player_old_force.name .. " has been destroyed! All buildings will slowly be destroyed now.")
         log("DestroyForce - FORCE DESTROYED: " .. player_old_force.name)
-        game.merge_forces(player_old_force, global.ocore.destroyed_force)           
+        game.merge_forces(player_old_force, global.ocore.destroyed_force)
     end
 
     RemoveOrResetPlayer(player, false, false, true, true)
@@ -565,7 +565,7 @@ function ResetPlayerAndAbandonForce(player)
     if ((#player_old_force.players == 0) and (player_old_force.name ~= global.ocfg.main_force)) then
         SendBroadcastMsg("Team " .. player_old_force.name .. " has been abandoned!")
         log("AbandonForce - FORCE ABANDONED: " .. player_old_force.name)
-        game.merge_forces(player_old_force, global.ocore.abandoned_force)           
+        game.merge_forces(player_old_force, global.ocore.abandoned_force)
     end
 
     RemoveOrResetPlayer(player, false, false, false, false)
@@ -608,7 +608,7 @@ function RemoveOrResetPlayer(player, remove_player, remove_force, remove_base, i
     if (remove_force) then
         if ((#player_old_force.players == 0) and (player_old_force.name ~= global.ocfg.main_force)) then
             log("RemoveOrResetPlayer - FORCE REMOVED: " .. player_old_force.name)
-            game.merge_forces(player_old_force, "neutral")           
+            game.merge_forces(player_old_force, "neutral")
         end
     end
 
@@ -741,11 +741,11 @@ function TransferOwnershipOfSharedSpawn(prevOwnerName, newOwnerName)
 end
 
 --[[
-  _  _  ___  _     ___  ___  ___     ___  _____  _   _  ___  ___ 
+  _  _  ___  _     ___  ___  ___     ___  _____  _   _  ___  ___
  | || || __|| |   | _ \| __|| _ \   / __||_   _|| | | || __|| __|
- | __ || _| | |__ |  _/| _| |   /   \__ \  | |  | |_| || _| | _| 
- |_||_||___||____||_|  |___||_|_\   |___/  |_|   \___/ |_|  |_|  
-                                                              
+ | __ || _| | |__ |  _/| _| |   /   \__ \  | |  | |_| || _| | _|
+ |_||_||___||____||_|  |___||_|_\   |___/  |_|   \___/ |_|  |_|
+
 --]]
 
 -- Same as GetClosestPosFromTable but specific to global.ocore.uniqueSpawns
@@ -935,11 +935,11 @@ function SendPlayerToRandomSpawn(player)
 end
 
 --[[
-  ___  ___   ___   ___  ___     ___  ___  ___  ___  ___  ___  ___  ___ 
+  ___  ___   ___   ___  ___     ___  ___  ___  ___  ___  ___  ___  ___
  | __|/ _ \ | _ \ / __|| __|   / __|| _ \| __|/ __||_ _|| __||_ _|/ __|
- | _|| (_) ||   /| (__ | _|    \__ \|  _/| _|| (__  | | | _|  | || (__ 
+ | _|| (_) ||   /| (__ | _|    \__ \|  _/| _|| (__  | | | _|  | || (__
  |_|  \___/ |_|_\ \___||___|   |___/|_|  |___|\___||___||_|  |___|\___|
-                                                                       
+
 --]]
 
 function CreateForce(force_name)
@@ -1009,11 +1009,11 @@ function CreatePlayerCustomForce(player)
 end
 
 --[[
- __   __ _    _  _  ___  _     _       _     ___  ___   _ __      __ _  _  ___ 
+ __   __ _    _  _  ___  _     _       _     ___  ___   _ __      __ _  _  ___
  \ \ / //_\  | \| ||_ _|| |   | |     /_\   / __|| _ \ /_\\ \    / /| \| |/ __|
   \ V // _ \ | .` | | | | |__ | |__  / _ \  \__ \|  _// _ \\ \/\/ / | .` |\__ \
    \_//_/ \_\|_|\_||___||____||____|/_/ \_\ |___/|_| /_/ \_\\_/\_/  |_|\_||___/
-                                                                               
+
 --]]
 
 -- Function to generate some map_gen_settings.starting_points
@@ -1128,4 +1128,3 @@ function ValidateVanillaSpawns(surface)
         end
     end
 end
-

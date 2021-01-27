@@ -6,7 +6,7 @@ require("lib/shared_chests")
 require("lib/map_features")
 local mod_gui = require("mod-gui")
 
-OARC_STORE_MAP_TEXT = 
+OARC_STORE_MAP_TEXT =
 {
     special_chests = "Special buildings for sharing or monitoring items and energy. This will convert the closest wooden chest (to you) within 16 tiles into a special building of your choice. Make sure to leave enough space! The combinators and accumulators can take up several tiles around them.",
     special_chunks = "Map features that can be built on the special empty chunks found on the map. You must be standing inside an empty special chunk to be able to build these. Each player can only build one of each type. [color=red]THESE FEATURES ARE PERMANENT AND CAN NOT BE REMOVED![/color]",
@@ -16,7 +16,7 @@ OARC_STORE_MAP_TEXT =
 
 -- N = number already purchased
 -- Cost = initial + (additional * ( N^multiplier ))
-OARC_STORE_MAP_FEATURES = 
+OARC_STORE_MAP_FEATURES =
 {
     special_chests = {
         ["logistic-chest-storage"] = {
@@ -34,7 +34,7 @@ OARC_STORE_MAP_FEATURES =
             -- limit = 100,
             text="Output chest for requesting shared items."},
         ["constant-combinator"] = {
-            initial_cost = 50, 
+            initial_cost = 50,
             text="Combinator setup to monitor shared items."},
         ["accumulator"] = {
             initial_cost = 200,
@@ -189,7 +189,7 @@ function CreateMapFeatureStoreTab(tab_container, player)
             else
                 btn.tooltip = item.text.." Cost: "..color..cost.."[/color] [item=coin]"
             end
-            
+
         end
 
         -- Spacer
@@ -215,7 +215,7 @@ function OarcMapFeaturePlayerCountGet(player, category_name, feature_name)
         global.oarc_store.pmf_counts[player.name][feature_name] = 0
         return 0
     end
-    
+
     return global.oarc_store.pmf_counts[player.name][feature_name]
 end
 
