@@ -120,9 +120,6 @@ function CreateGameOptionsTab(tab_container, player)
     if (global.ocfg.enable_separate_teams and global.ocfg.enable_shared_team_vision) then
         game_info_str = game_info_str.."\n".."Everyone (all teams) have shared vision."
     end
-    if (global.ocfg.frontier_rocket_silo) then
-        game_info_str = game_info_str.."\n".."Silos are only placeable in certain areas on the map!"
-    end
     if (global.ocfg.enable_regrowth) then
         game_info_str = game_info_str.."\n".."Old parts of the map will slowly be deleted over time (chunks without any player buildings)."
     end

@@ -80,22 +80,7 @@ OARC_STORE_MAP_FEATURES =
             multiplier_cost = 2,
             -- limit = 1,
             text="Build a special centrifuge chunk here. Contains 1 centrifuge that runs at very high speeds. [color=red]Requires energy from the shared storage. Modules have no effect![/color]"},
-        ["rocket-silo"] = {
-            initial_cost = 1000,
-            additional_cost = 0,
-            multiplier_cost = 2,
-            max_cost = 10000,
-            -- limit = 2,
-            text="Convert this special chunk into a rocket launch pad. This allows you to build a rocket silo here!"},
     },
-
-    -- special_chunks_upgrades = {
-    --     ["big-electric-pole"] = {
-    --         cost = 0,
-    --         text = "Upgrade your special chunk so that it pulls power from the cloud! Refills the accumulator from the cloud automatically if it falls below 50%."
-    --     }
-
-    -- }
 
     special_buttons = {
         ["assembling-machine-1"] = {
@@ -309,8 +294,6 @@ function OarcMapFeatureStoreButton(event)
         result = RequestSpawnSpecialChunk(player, SpawnAssemblyChunk, button.name)
     elseif (button.name == "centrifuge") then
         result = RequestSpawnSpecialChunk(player, SpawnCentrifugeChunk, button.name)
-    elseif (button.name == "rocket-silo") then
-        result = RequestSpawnSpecialChunk(player, SpawnSiloChunk, button.name)
     elseif (button.name == "assembling-machine-1") then
         SendPlayerToSpawn(player)
         result = true

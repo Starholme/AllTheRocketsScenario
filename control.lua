@@ -9,7 +9,6 @@
 require("lib/oarc_utils")
 
 -- Other soft-mod type features.
-require("lib/frontier_silo")
 require("lib/tag")
 require("lib/game_opts")
 require("lib/player_list")
@@ -71,13 +70,7 @@ script.on_init(function(event)
     -- MUST be before other stuff, but after surface creation.
     InitSpawnGlobalsAndForces()
 
-    -- Frontier Silo Area Generation
-    if (global.ocfg.frontier_rocket_silo and not global.ocfg.enable_magic_factories) then
-        SpawnSilosAndGenerateSiloAreas()
-    end
-
     -- Everyone do the shuffle. Helps avoid always starting at the same location.
-    -- Needs to be done after the silo spawning.
     if (global.ocfg.enable_vanilla_spawns) then
         global.vanillaSpawns = FYShuffle(global.vanillaSpawns)
         log("Vanilla spawns:")
@@ -285,19 +278,12 @@ script.on_event(defines.events.on_built_entity, function(event)
         SetItemBlueprintTimeToLive(event)
     end
 
-    if global.ocfg.frontier_rocket_silo then
-        BuildSiloAttempt(event)
-    end
-
 end)
 
 script.on_event(defines.events.on_robot_built_entity, function (event)
     if global.ocfg.enable_regrowth then
         if (event.created_entity.surface.name ~= GAME_SURFACE_NAME) then return end
         RegrowthMarkAreaSafeGivenTilePos(event.created_entity.position, 2, false)
-    end
-    if global.ocfg.frontier_rocket_silo then
-        BuildSiloAttempt(event)
     end
 end)
 
@@ -343,12 +329,6 @@ end)
 -- This is where you can permanently remove researched techs
 ----------------------------------------
 script.on_event(defines.events.on_research_finished, function(event)
-
-    -- Never allows players to build rocket-silos in "frontier" mode.
-    if global.ocfg.frontier_rocket_silo and not global.ocfg.frontier_allow_build then
-        RemoveRecipe(event.research.force, "rocket-silo")
-    end
-
     if global.ocfg.lock_goodies_rocket_launch and
         (not global.ocore.satellite_sent or not global.ocore.satellite_sent[event.research.force.name]) then
         for _,v in ipairs(LOCKED_RECIPES) do

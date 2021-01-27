@@ -27,8 +27,6 @@ function InitOarcConfig()
     global.ocfg.server_contact = CONTACT_MSG
     global.ocfg.enable_vanilla_spawns = ENABLE_VANILLA_SPAWNS
     global.ocfg.enable_buddy_spawn = ENABLE_BUDDY_SPAWN
-    global.ocfg.frontier_rocket_silo = FRONTIER_ROCKET_SILO_MODE
-    global.ocfg.silo_islands = SILO_ISLANDS_MODE
     global.ocfg.enable_undecorator = ENABLE_UNDECORATOR
     global.ocfg.enable_tags = ENABLE_TAGS
     global.ocfg.enable_long_reach = ENABLE_LONGREACH
@@ -66,12 +64,6 @@ function InitOarcConfig()
     global.ocfg.max_players_shared_spawn = MAX_PLAYERS_AT_SHARED_SPAWN
     global.ocfg.enable_shared_chat = ENABLE_SHARED_TEAM_CHAT
     global.ocfg.respawn_cooldown_min = RESPAWN_COOLDOWN_IN_MINUTES
-    global.ocfg.frontier_silo_count = SILO_NUM_SPAWNS
-    global.ocfg.frontier_silo_distance = SILO_CHUNK_DISTANCE
-    global.ocfg.frontier_fixed_pos = SILO_FIXED_POSITION
-    global.ocfg.frontier_pos_table = SILO_POSITIONS
-    global.ocfg.frontier_silo_vision = ENABLE_SILO_VISION
-    global.ocfg.frontier_allow_build = ENABLE_SILO_PLAYER_BUILD
 
     global.ocfg.enable_anti_grief = ENABLE_ANTI_GRIEFING
     global.ocfg.ghost_ttl = GHOST_TIME_TO_LIVE
@@ -83,10 +75,6 @@ function InitOarcConfig()
     -----------------------
     -- VALIDATION CHECKS --
     -----------------------
-
-    if (not global.ocfg.frontier_rocket_silo or not global.ocfg.enable_vanilla_spawns) then
-        global.ocfg.silo_islands = false
-    end
 
     if (global.ocfg.enable_vanilla_spawns) then
         global.ocfg.enable_buddy_spawn = false
