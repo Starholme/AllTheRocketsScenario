@@ -1,5 +1,4 @@
 -- example-config.lua (Rename this file to config.lua to use it)
--- Oct 3 2020 (updated on)
 -- Configuration Options
 --
 -- You should be safe to leave most of the settings here as defaults if you want.
@@ -11,19 +10,20 @@
 --------------------------------------------------------------------------------
 
 -- This stuff is shown in the welcome GUI and Info panel. Make sure it's valid.
-WELCOME_MSG_TITLE = "[INSERT SERVER OWNER MSG HERE test title!]"
-WELCOME_MSG = "[INSERT SERVER OWNER MSG HERE test msg!]" -- Printed to player on join as well.
+WELCOME_MSG_TITLE = "Welcome to All The Rockets!"
+WELCOME_MSG = "Welcome to ATR!" -- Printed to player on join as well.
 SERVER_MSG = "Rules: Be polite. Ask before changing other players's stuff. Have fun!\n"..
-"This server is running a custom scenario that allows individual starting areas on the map."
+"This server is running a custom scenario that allows individual starting areas on the map.\n"..
+"Subspace Storage is shared across all ATR servers!"
 
 SCENARIO_INFO_MSG = "Latest updates in this scenario version:\n"..
 "Item & energy sharing system! No attacks on your base while you are offline!\n"..
 "This scenario gives you and/or your friends your own starting area.\n"..
 "You can be on the main team or your own. All teams are friendly.\n"..
-"If you leave in the first 15 minutes, your base and character will be deleted!"
+"If you leave in the first 30 minutes, your base and character will be deleted!"
 
-CONTACT_MSG = "Contact: SteamID:Oarc | oarcinae@gmail.com | Discord:Oarc#8695"
-DISCORD_INV = "discord.gg/trnpcen"
+CONTACT_MSG = "Contact: SteamID:Starholme | Russel.Delainey@gmail.com | Discord:Starholme#3744"
+DISCORD_INV = "Not yet! Someday..."
 
 ------------------------------------------------------------------------------------------------------------------------
 -- Module Enables
@@ -37,7 +37,7 @@ ENABLE_BUDDY_SPAWN = true
 -- Frontier style rocket silo mode. This means you can't build silos, but some spawn out in the wild for you to use.
 -- if ENABLE_MAGIC_FACTORIES=false, you will find a few special areas to launch rockets from.
 -- If ENABLE_MAGIC_FACTORIES=true, you must buy a silo at one of the special chunks.
-FRONTIER_ROCKET_SILO_MODE = true
+FRONTIER_ROCKET_SILO_MODE = false
 
 -- Enable Undecorator. Removes decorative items to reduce save file size.
 ENABLE_UNDECORATOR = true
@@ -52,7 +52,7 @@ ENABLE_LONGREACH = true
 ENABLE_AUTOFILL = true
 
 -- Enable vanilla loaders
-ENABLE_LOADERS = true
+ENABLE_LOADERS = false
 
 -- Enable auto decon of miners (My miner decon is very simplistic, if you are using a similar mod disable this!)
 ENABLE_MINER_AUTODECON = true
@@ -73,9 +73,9 @@ ENABLE_ABANDONED_BASE_REMOVAL = true
 ENABLE_RESEARCH_QUEUE = true
 
 -- This enables coin drops from enemies and a shop (GUI) to buy stuff from.
-ENABLE_COIN_SHOP = false
+ENABLE_COIN_SHOP = true
 
--- Enable item & energy sharing system. 
+-- Enable item & energy sharing system.
 ENABLE_ITEM_AND_ENERGY_SHARING = false -- REQUIRES ENABLE_COIN_SHOP=true!
 
 -- Enable magic chunks around the map that let you buy powerful factories that smelt/assemble/process very very quickly.
@@ -85,14 +85,14 @@ ENABLE_MAGIC_FACTORIES = false -- REQUIRES ENABLE_COIN_SHOP=true!
 -- Not 100% guaranteed.
 ENABLE_OFFLINE_PROTECTION = true
 
--- This allows you to set the tech price multiplier for the game, but 
+-- This allows you to set the tech price multiplier for the game, but
 -- have it only affect the main force. We just pad all non-main forces lab prod bonus.
 -- This has no effect unless the tech multiplier is more than 1!
-ENABLE_FORCE_LAB_PROD_BONUS = true
+ENABLE_FORCE_LAB_PROD_BONUS = false
 
 -- Lock various recipes and technologies behind a rocket launch.
 -- Each team/force must launch their own rocket to unlock this!
-LOCK_GOODIES_UNTIL_ROCKET_LAUNCH = true
+LOCK_GOODIES_UNTIL_ROCKET_LAUNCH = false
 LOCKED_TECHNOLOGIES = {
     {t="atomic-bomb"},{t="power-armor-mk2"},{t="artillery"},{t="spidertron"}
 }
@@ -134,14 +134,12 @@ OARC_MODIFIED_ENEMY_SPAWNING = true
 -- Items provided to the player the first time they join
 PLAYER_SPAWN_START_ITEMS = {
     ["pistol"]=1,
-    ["firearm-magazine"]=200,
+    ["firearm-magazine"]=100,
     ["iron-plate"]=100,
-    ["burner-mining-drill"] = 4,
-    ["stone-furnace"] = 4,
+    ["copper-plate"]=100,
     ["coal"] = 50,
     ["stone"] = 50,
-
-    ["coin"] = 2500, -- Don't give coins unless you have shared chests enabled.
+    ["coin"] = 100,
 }
 
 -- Items provided after EVERY respawn (disabled by default)
@@ -285,33 +283,7 @@ OARC_CFG = {
             size = 16,
             x_offset = -27,
             y_offset = -20
-        }--,
-        -- ["uranium-ore"] =
-        -- {
-        --     amount = 0,
-        --     size = 0,
-        --     x_offset = 17,
-        --     y_offset = -34
-        -- }
-
-        -- ####### Bobs + Angels #######
-        -- DISABLE STARTING OIL PATCHES!
-        -- Coal                = coal
-        -- Saphirite           = angels-ore1
-        -- Stiratite           = angels-ore3
-        -- Rubyte              = angels-ore5
-        -- Bobmonium           = angels-ore6
-
-        -- ########## Bobs Ore ##########
-        -- Iron                = iron-ore
-        -- Copper              = copper-ore
-        -- Coal                = coal
-        -- Stone               = stone
-        -- Tin                 = tin-ore
-        -- Lead (Galena)       = lead-ore
-
-        -- See https://github.com/Oarcinae/FactorioScenarioMultiplayerSpawn/issues/11#issuecomment-479724909
-        -- for full examples.
+        }
     },
 
     -- Special resource patches like oil
@@ -344,7 +316,7 @@ MAIN_FORCE = "Main Force"
 -- Enable if players can allow others to join their base.
 -- And specify how many including the host are allowed.
 ENABLE_SHARED_SPAWNS = true
-MAX_PLAYERS_AT_SHARED_SPAWN = 3
+MAX_PLAYERS_AT_SHARED_SPAWN = 10
 
 -- Share local team chat with all teams
 -- This makes it so you don't have to use /s
@@ -358,7 +330,7 @@ RESPAWN_COOLDOWN_IN_MINUTES = 15
 
 -- Require playes to be online for at least X minutes
 -- Else their character is removed and their spawn point is freed up for use
-MIN_ONLINE_TIME_IN_MINUTES = 15
+MIN_ONLINE_TIME_IN_MINUTES = 30
 
 --------------------------------------------------------------------------------
 -- Frontier Rocket Silo Options
@@ -456,4 +428,4 @@ SILO_ISLANDS_MODE = false
 
 -- This is part of regrowth, and if both are enabled, any chunks which aren't active and have no entities will
 -- eventually be deleted over time. DO NOT USE THIS WITH MODS!
-ENABLE_WORLD_EATER = false 
+ENABLE_WORLD_EATER = true
