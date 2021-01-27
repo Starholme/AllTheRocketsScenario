@@ -74,11 +74,6 @@ function InitSpawnGlobalsAndForces()
         global.ocore.buddySpawnOpts = {}
     end
 
-    -- Silo info
-    if (global.siloPosition == nil) then
-        global.siloPosition = {}
-    end
-
     -- Buddy info: The only real use is to check if one of a buddy pair is online to see if we should allow enemy
     -- attacks on the base.
     if (global.ocore.buddyPairs == nil) then
@@ -958,10 +953,6 @@ function CreateForce(force_name)
         end
         if global.ocfg.enable_research_queue then
             newForce.research_queue_enabled = true
-        end
-        -- Chart silo areas if necessary
-        if global.ocfg.frontier_rocket_silo and global.ocfg.frontier_silo_vision then
-            ChartRocketSiloAreas(game.surfaces[GAME_SURFACE_NAME], newForce)
         end
         SetCeaseFireBetweenAllForces()
         SetFriendlyBetweenAllForces()

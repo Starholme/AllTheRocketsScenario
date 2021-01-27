@@ -178,12 +178,12 @@ function MagicFactoryChunkGenerator()
             local chunk_y = MathRound((r * math.sin(angle)) + math.random(-2, 2))
 
             if (not game.surfaces[GAME_SURFACE_NAME].is_chunk_generated({chunk_x,chunk_y})) then
-                
+
                 table.insert(global.omagic.factory_positions, {x=chunk_x, y=chunk_y})
                 game.surfaces[GAME_SURFACE_NAME].request_to_generate_chunks(GetCenterTilePosFromChunkPos({x=chunk_x, y=chunk_y}), 0)
                 log("Magic furnace position: " .. chunk_x .. ", " .. chunk_y .. ", " .. angle)
             else
-                log("Magic furnace collided with silo location?" .. chunk_x .. ", " .. chunk_y)
+                log("Magic furnace collided with location?" .. chunk_x .. ", " .. chunk_y)
             end
         end
     end
@@ -376,39 +376,6 @@ function SpawnCentrifugeChunk(chunk_pos)
 
     table.insert(global.omagic.centrifuges, centrifuge_chunk)
     SpecialChunkHelperText(center_pos)
-end
-
-function SpawnSiloChunk(chunk_pos)
-
-    center_pos = GetCenterTilePosFromChunkPos(chunk_pos)
-
-    table.insert(global.siloPosition, center_pos)
-    
-    RenderPermanentGroundText(game.surfaces[GAME_SURFACE_NAME].index,
-        {x=center_pos.x-3.25,y=center_pos.y+6},
-        1,
-        "You can build a silo here!",
-        {0.7,0.4,0.3,0.8})
-
-    -- Set tiles below the silo
-    tiles = {}
-    for dx = -6,5 do
-        for dy = -6,5 do
-            if (game.active_mods["oarc-restricted-build"]) then
-                table.insert(tiles, {name = global.ocfg.locked_build_area_tile,
-                                    position = {center_pos.x+dx, center_pos.y+dy}})
-            else
-                if ((dx % 2 == 0) or (dx % 2 == 0)) then
-                    table.insert(tiles, {name = "concrete",
-                                        position = {center_pos.x+dx, center_pos.y+dy}})
-                else
-                    table.insert(tiles, {name = "hazard-concrete-left",
-                                        position = {center_pos.x+dx, center_pos.y+dy}})
-                end
-            end
-        end
-    end
-    game.surfaces[GAME_SURFACE_NAME].set_tiles(tiles, true)
 end
 
 function SpawnMagicBuilding(entity_name, position)

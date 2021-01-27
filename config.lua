@@ -34,11 +34,6 @@ DISCORD_INV = "Not yet! Someday..."
 -- GUI selection options.
 ENABLE_BUDDY_SPAWN = true
 
--- Frontier style rocket silo mode. This means you can't build silos, but some spawn out in the wild for you to use.
--- if ENABLE_MAGIC_FACTORIES=false, you will find a few special areas to launch rockets from.
--- If ENABLE_MAGIC_FACTORIES=true, you must buy a silo at one of the special chunks.
-FRONTIER_ROCKET_SILO_MODE = false
-
 -- Enable Undecorator. Removes decorative items to reduce save file size.
 ENABLE_UNDECORATOR = true
 
@@ -333,42 +328,6 @@ RESPAWN_COOLDOWN_IN_MINUTES = 15
 MIN_ONLINE_TIME_IN_MINUTES = 30
 
 --------------------------------------------------------------------------------
--- Frontier Rocket Silo Options
---------------------------------------------------------------------------------
-
--- Number of silos found in the wild.
--- These will spawn in a circle at given distance from the center of the map
--- If you set this number too high, you'll have a lot of delay at the start of the game.
-SILO_NUM_SPAWNS = 5
-
--- How many chunks away from the center of the map should the silo be spawned
-SILO_CHUNK_DISTANCE = 200
-
--- If this is enabled, you get silos at the positions specified below.
--- (The other settings above are ignored in this case.)
-SILO_FIXED_POSITION = false
-
--- If you want to set fixed spawn locations for some silos.
-SILO_POSITIONS = {{x = -1000, y = -1000},
-                  {x = -1000, y = 1000},
-                  {x = 1000,  y = -1000},
-                  {x = 1000,  y = 1000}}
-
--- Set this to false so that you have to search for the silo's.
-ENABLE_SILO_VISION = true
-
--- Add beacons around the silo (Philip's mod)
-ENABLE_SILO_BEACONS = false
-ENABLE_SILO_RADAR = false
-
--- Allow silos to be built by the player, but forces them to build in
--- the fixed locations. If this is false, silos are built and assigned
--- only to the main force. This can cause a problem for non main forces
--- when playing with LOCK_GOODIES_UNTIL_ROCKET_LAUNCH enabled.
-ENABLE_SILO_PLAYER_BUILD = true
-
-
---------------------------------------------------------------------------------
 -- Long Reach Options
 --------------------------------------------------------------------------------
 BUILD_DIST_BONUS = 64
@@ -420,11 +379,6 @@ VANILLA_SPAWN_COUNT = 60
 
 -- Num tiles between each spawn. (I recommend at least 1000)
 VANILLA_SPAWN_SPACING = 2000
-
--- Silo Islands
--- This options is only valid when used with ENABLE_VANILLA_SPAWNS and FRONTIER_ROCKET_SILO_MODE!
--- This spreads out rocket silos on every OTHER island/vanilla spawn
-SILO_ISLANDS_MODE = false
 
 -- This is part of regrowth, and if both are enabled, any chunks which aren't active and have no entities will
 -- eventually be deleted over time. DO NOT USE THIS WITH MODS!
