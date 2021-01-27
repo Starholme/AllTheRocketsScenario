@@ -25,7 +25,7 @@ FURNACE_RECIPES = {
                     recipe_pollution = 0.053},
     ["iron-plate"] = {recipe_name = "steel-plate",
                     recipe_energy = 16*FURNACE_ENERGY_PER_CRAFT_SECOND,
-                    recipe_pollution = 0.267}, 
+                    recipe_pollution = 0.267},
     ["stone"] = {recipe_name = "stone-brick",
                     recipe_energy = 3.2*FURNACE_ENERGY_PER_CRAFT_SECOND,
                     recipe_pollution = 0.053},
@@ -50,7 +50,7 @@ ENEMY_WORM_TURRETS =
     [2] = "big-worm-turret"
 }
 
-NEUTRAL_FORCE_RECIPES = 
+NEUTRAL_FORCE_RECIPES =
 {
     -- Science packs
     ["automation-science-pack"] = true,
@@ -76,7 +76,7 @@ NEUTRAL_FORCE_RECIPES =
     ["plastic-bar"] = true,
     ["sulfur"] = true,
     ["sulfuric-acid"] = true,
-    
+
     -- ["oil-refinery"] = true,
     -- ["explosives"] = true,
 
@@ -117,7 +117,7 @@ NEUTRAL_FORCE_RECIPES =
     ["solar-panel"] = true,
     ["stone-wall"] = true,
     ["empty-barrel"] = true,
-    
+
     -- Nuclear
     ["uranium-processing"] = true,
     -- ["kovarex-enrichment-process"] = true,
@@ -135,7 +135,7 @@ function SetNeutralForceAllowedRecipes()
     -- Disable ALL recipes
     for i,v in pairs(game.forces["neutral"].recipes) do
         game.forces["neutral"].recipes[i].enabled = false;
-    end 
+    end
 
     -- Enable only the ones we want
     for i,v in pairs(NEUTRAL_FORCE_RECIPES) do
@@ -164,7 +164,7 @@ function MagicFactoriesInit()
 end
 
 function MagicFactoryChunkGenerator()
-    
+
     -- This generates several circles of randomized chunk positions.
     for r=MAGIC_BUILDING_MIN_DISTANCE,MAGIC_BUILDING_MAX_DISTANCE,MAGIC_BUILDING_CHUNK_SPREAD do
         local random_angle_offset = math.random(0, math.pi * 2)
@@ -210,7 +210,7 @@ end
 
 function MagicalFactorySpawnAll()
     for _,chunk_pos in pairs(global.omagic.factory_positions) do
-        
+
         local pos = GetCenterTilePosFromChunkPos(chunk_pos)
         local c_area = GetAreaFromChunkPos(chunk_pos)
 
@@ -229,7 +229,7 @@ function MagicalFactorySpawnAll()
         game.surfaces[GAME_SURFACE_NAME].set_tiles(dirtTiles)
 
         -- Yay colored tiles
-        CreateFixedColorTileArea(game.surfaces[GAME_SURFACE_NAME], 
+        CreateFixedColorTileArea(game.surfaces[GAME_SURFACE_NAME],
                                 {left_top = {x=c_area.left_top.x+2, y=c_area.left_top.y+2},
                                     right_bottom = {x=c_area.right_bottom.x-2, y=c_area.right_bottom.y-2}},
                                 "black")
@@ -260,7 +260,7 @@ function RequestSpawnSpecialChunk(player, spawn_function, feature_name)
                                                 right_bottom = {chunk_area.right_bottom.x-1, chunk_area.right_bottom.y-1}},
                                                 force={"enemy"},
                                                 invert=true}
-        
+
         -- Either there are no entities in the chunk (player is just on the boundary), or the only entity is the player.
         if ((#entities == 1) and (entities[1].player) and (entities[1].player == player)) or (#entities == 0) then
             spawn_function(closest_chunk)
@@ -443,7 +443,7 @@ function MagicFurnaceOnTick()
     if not global.omagic.furnaces then return end
 
     for entry_idx,entry in pairs(global.omagic.furnaces) do
-        
+
         -- Validate the entry.
         if (entry == nil) or (entry.entities == nil) or (entry.energy_input == nil) or (not entry.energy_input.valid) then
             global.omagic.furnaces[entry_idx] = nil
@@ -466,23 +466,23 @@ function MagicFurnaceOnTick()
 
             -- We have something inside?
             local input_item_name = next(input_items)
-            if not input_item_name then 
+            if not input_item_name then
                 goto next_furnace
             end
 
             -- Does the input item have a recipe?
-            if not FURNACE_RECIPES[input_item_name] then 
+            if not FURNACE_RECIPES[input_item_name] then
                 log("MagicFurnaceOnTick - Missing FURNACE_RECIPES?")
                 goto next_furnace
             end
             local recipe = game.forces["neutral"].recipes[FURNACE_RECIPES[input_item_name].recipe_name]
-            if not recipe then 
+            if not recipe then
                 log("MagicFurnaceOnTick - Missing neutral force recipes?")
                 goto next_furnace
             end
 
             -- Verify 1 ingredient type and 1 product type (for furnaces)
-            if (#recipe.products ~= 1) or (#recipe.ingredients ~= 1) then 
+            if (#recipe.products ~= 1) or (#recipe.ingredients ~= 1) then
                 log("MagicFurnaceOnTick - Recipe product/ingredient more than 1?")
                 goto next_furnace
             end
@@ -490,11 +490,11 @@ function MagicFurnaceOnTick()
             local recipe_product = recipe.products[next(recipe.products)]
 
             local output_inv = furnace.get_inventory(defines.inventory.furnace_result)
-            
+
             -- Can we insert at least 1 of the recipe result?
             -- if not output_inv.can_insert({name=recipe_product.name}) then goto next_furnace end
             local output_space = output_inv.get_insertable_count(recipe_product.name)
-            
+
             -- Calculate how many times we can make the recipe.
             local ingredient_limit = math.floor(input_items[input_item_name]/recipe_ingredient.amount)
             local output_limit = math.floor(output_space/recipe_product.amount)
@@ -518,7 +518,7 @@ function MagicFurnaceOnTick()
                                                     force={"enemy", "neutral"},
                                                     limit=1,
                                                     invert=true}
-                if (player_entities and player_entities[1] and player_entities[1].last_user) then 
+                if (player_entities and player_entities[1] and player_entities[1].last_user) then
                     furnace.last_user = player_entities[1].last_user
                 end
             end
@@ -556,13 +556,13 @@ function MagicChemplantOnTick()
         local energy_share = entry.energy_input.energy/(#entry.chemplants + #entry.refineries)
 
         for idx,chemplant in pairs(entry.chemplants) do
-            
+
             if (chemplant == nil) or (not chemplant.valid) then
                 global.omagic.chemplants[idx] = nil
                 log("Magic chemplant removed?")
                 goto next_chemplant_entry
             end
-            
+
             recipe = chemplant.get_recipe()
 
             if (not recipe) then
@@ -584,7 +584,7 @@ function MagicChemplantOnTick()
                 end
             end
 
-            local recipe_product = recipe.products[next(recipe.products)] -- Assume only 1 product.             
+            local recipe_product = recipe.products[next(recipe.products)] -- Assume only 1 product.
 
             if recipe_product.type == "fluid" then
 
@@ -601,7 +601,7 @@ function MagicChemplantOnTick()
             else
 
                 local output_inv = chemplant.get_inventory(defines.inventory.assembling_machine_output)
-            
+
                 -- Can we insert at least 1 of the recipe result?
                 if not output_inv.can_insert({name=recipe_product.name, amount=recipe_product.amount}) then goto next_chemplant end
 
@@ -628,7 +628,7 @@ function MagicChemplantOnTick()
             end
 
             chemplant.products_finished = chemplant.products_finished + 1
-            
+
             -- Track energy usage
             entry.energy_input.energy = entry.energy_input.energy - energy_cost
             chemplant.surface.pollute(chemplant.position, recipe.energy*CHEMPLANT_POLLUTION_PER_CRAFT_SECOND)
@@ -657,13 +657,13 @@ function MagicRefineryOnTick()
         local energy_share = entry.energy_input.energy/(#entry.chemplants + #entry.refineries)
 
         for idx,refinery in pairs(entry.refineries) do
-            
+
             if (refinery == nil) or (not refinery.valid) then
                 global.omagic.refineries[idx] = nil
                 log("Magic refinery removed?")
                 goto next_refinery_entry
             end
-            
+
             recipe = refinery.get_recipe()
 
             if (not recipe) then
@@ -683,7 +683,7 @@ function MagicRefineryOnTick()
             if (recipe.name == "advanced-oil-processing") then
 
                 if ((not refinery.fluidbox[1]) or (refinery.fluidbox[1].amount < 50)) then goto next_refinery end -- Not enough water
-                if ((not refinery.fluidbox[2]) or (refinery.fluidbox[2].amount < 100)) then goto next_refinery end -- Not enough crude               
+                if ((not refinery.fluidbox[2]) or (refinery.fluidbox[2].amount < 100)) then goto next_refinery end -- Not enough crude
                 if ((refinery.fluidbox[3]) and (refinery.fluidbox[3].amount > 25)) then goto next_refinery end -- Not enough space for heavy
                 if ((refinery.fluidbox[4]) and (refinery.fluidbox[4].amount > 45)) then goto next_refinery end -- Not enough space for light
                 if ((refinery.fluidbox[5]) and (refinery.fluidbox[5].amount > 55)) then goto next_refinery end -- Not enough space for petro
@@ -719,7 +719,7 @@ function MagicRefineryOnTick()
             else
                 goto next_refinery -- Shouldn't hit this...
             end
-           
+
             refinery.products_finished = refinery.products_finished + 1
 
             -- Track energy usage
@@ -754,7 +754,7 @@ function MagicAssemblerOnTick()
                 log("MagicAssemblerOnTick - Magic assembler removed?")
                 goto next_assembler_entry
             end
-            
+
             recipe = assembler.get_recipe()
 
             if (not recipe) then
@@ -765,7 +765,7 @@ function MagicAssemblerOnTick()
             if (energy_share < energy_cost) then goto next_assembler end -- Not enough energy!
 
              -- Assume only 1 product and that it's an item!
-            local recipe_product = recipe.products[next(recipe.products)]           
+            local recipe_product = recipe.products[next(recipe.products)]
             if recipe_product.type ~= "item" then goto next_assembler end
 
             local input_inv = assembler.get_inventory(defines.inventory.assembling_machine_input)
@@ -780,7 +780,7 @@ function MagicAssemblerOnTick()
                 end
             end
 
-            local output_inv = assembler.get_inventory(defines.inventory.assembling_machine_output)        
+            local output_inv = assembler.get_inventory(defines.inventory.assembling_machine_output)
             if not output_inv.can_insert({name=recipe_product.name, amount=recipe_product.amount}) then
                 goto next_assembler -- Can we insert the result?
             end
@@ -823,7 +823,7 @@ function MagicCentrifugeOnTick()
     if not global.omagic.centrifuges then return end
 
     for entry_idx,entry in pairs(global.omagic.centrifuges) do
-        
+
         -- Validate the entry.
         if (entry == nil) or (entry.entities == nil) or (entry.energy_input == nil) or (not entry.energy_input.valid) then
             global.omagic.centrifuges[entry_idx] = nil
@@ -840,7 +840,7 @@ function MagicCentrifugeOnTick()
                 log("MagicCentrifugeOnTick - Magic centrifuge removed?")
                 goto next_centrifuge_entry
             end
-           
+
             recipe = centrifuge.get_recipe()
 
             if (not recipe) then
@@ -859,7 +859,7 @@ function MagicCentrifugeOnTick()
                 end
             end
 
-            local output_inv = centrifuge.get_inventory(defines.inventory.assembling_machine_output)     
+            local output_inv = centrifuge.get_inventory(defines.inventory.assembling_machine_output)
 
             local output_item, output_count
 
