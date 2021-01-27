@@ -1,28 +1,20 @@
-# FactorioScenarioMultiplayerSpawn
-A custom scenario for allowing separate spawn locations in multiplayer. Designed for Co-op and PvE. 
+# AllTheRocketsScenario
+All The Rockets is a 'near vanilla' experience aiming to launch tens of thousands of rockets, be new player friendly, and foster cooperation
+among players. This is a pure co-op, with no supported PVP.
 
-## Read the WIKI
-The github wiki page will have the most up to date information. If you have questions, go there first, otherwise just ask.
+As factorio maps grow too large to download and run, new maps will be launched. Running on a clusterio
 
-## Versions
-Check releases for stable versions. 0.17 and 0.16 have final stable versions that will no longer be maintained.
-The latest master is for 1.0.0+
-
-## Status
-At this time I have no more planned features and will only be in support and maintenance mode.
+This custom scenario adds:
+- Separate spawn locations in multiplayer
+- A coin shop full of various goodies
+- Tools to help reduce map size
 
 ## Credit
-Several other portions of the code (tags, frontier style rocket silo) have also been adapted from other scenario code.
+OARC - The vast majority of this code is forked from https://github.com/Oarcinae/FactorioScenarioMultiplayerSpawn
+Thank you for keeping this open source, allowing others to share and adapt what you do.
 
-Credit to 3Ra for help as well: https://github.com/3RaGaming
-
-Praise be to Mylon
-
-## Random Notes
-Feel free to submit bugs/fixes/requests/pulls/forks whatever you want.
-
-I do not plan on supporting PvP, but I will help anyone who wants to make it a configurable option.
+Clusterio - While this scenario does not require clusterio, I still want to thank them for a system that will allow this sort of long
+running game, with communication between factorio servers. https://github.com/clusterio/factorioClusterio
 
 ## Contact
-discord.gg/trnpcen
-oarcinae@gmail.com
+Russel.Delainey@gmail.com
