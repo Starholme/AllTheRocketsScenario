@@ -68,7 +68,7 @@ function RenderPermanentGroundText(surface, position, scale, text, color)
                     --Allowed fonts: default-dialog-button default-game compilatron-message-font default-large default-large-semibold default-large-bold heading-1 compi
                     font="compi",
                     draw_on_ground=true}
-end 
+end
 
 -- A standardized helper text that fades out over time
 function TemporaryHelperText(text, position, ttl)
@@ -408,9 +408,9 @@ end
 function ShareChatBetweenForces(player, msg)
     for _,force in pairs(game.forces) do
         if (force ~= nil) then
-            if ((force.name ~= enemy) and
-                (force.name ~= neutral) and
-                (force.name ~= player) and
+            if ((force.name ~= "enemy") and
+                (force.name ~= "neutral") and
+                (force.name ~= "player") and
                 (force ~= player.force)) then
                 force.print(player.name..": "..msg)
             end
@@ -777,7 +777,7 @@ function CreateTileArrow(surface, pos, type)
         table.insert(tiles, {name = "hazard-concrete-left", position = {pos.x+2, pos.y+1}})
         table.insert(tiles, {name = "hazard-concrete-left", position = {pos.x+3, pos.y+1}})
     end
-    
+
     surface.set_tiles(tiles, true)
 end
 
@@ -1284,13 +1284,6 @@ end
 --------------------------------------------------------------------------------
 -- Holding pen for new players joining the map
 --------------------------------------------------------------------------------
-function CreateWall(surface, pos)
-    local wall = surface.create_entity({name="stone-wall", position=pos, force=MAIN_TEAM})
-    if wall then
-        wall.destructible = false
-        wall.minable = false
-    end
-end
 
 function CreateHoldingPen(surface, chunkArea)
     local radiusTiles = global.ocfg.spawn_config.gen_settings.land_area_tiles-10

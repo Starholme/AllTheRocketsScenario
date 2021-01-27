@@ -116,7 +116,7 @@ function DisplaySpawnOptions(player)
     -- Warnings and explanations...
     local warn_msg = {"oarc-click-info-btn-help"}
     AddLabel(sGui, "warning_lbl1", warn_msg, my_warning_style)
-    AddLabel(sGui, "spawn_msg_lbl1", SPAWN_MSG1, my_label_style)
+    --AddLabel(sGui, "spawn_msg_lbl1", SPAWN_MSG1, my_label_style)
 
     -- Button and message about the regular vanilla spawn
     -- if ENABLE_DEFAULT_SPAWN then
@@ -283,7 +283,8 @@ function SpawnOptsGuiClick(event)
 
     local pgcs = player.gui.screen.spawn_opts
 
-    local joinMainTeamRadio, joinOwnTeamRadio, moatChoice, vanillaChoice = false
+    local joinMainTeamRadio, joinOwnTeamRadio, moatChoice
+    local vanillaChoice = false
 
     -- Check if a valid button on the gui was pressed
     -- and delete the GUI
@@ -903,7 +904,8 @@ function BuddySpawnOptsGuiClick(event)
         end
     end
 
-    local joinMainTeamRadio, joinOwnTeamRadio, joinBuddyTeamRadio, moatChoice = false
+    local joinMainTeamRadio, joinOwnTeamRadio, joinBuddyTeamRadio
+    local moatChoice = false
     local buddyChoice = nil
 
     -- Handle the spawn request button clicks

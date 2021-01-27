@@ -1,20 +1,3 @@
--- control.lua
--- Mar 2019
-
--- Oarc's Separated Spawn Scenario
---
--- I wanted to create a scenario that allows you to spawn in separate locations
--- From there, I ended up adding a bunch of other minor/major features
---
--- Credit:
---  Tags - Taken from WOGs scenario
---  Rocket Silo - Taken from Frontier as an idea
---
--- Feel free to re-use anything you want. It would be nice to give me credit
--- if you can.
-
-
-
 -- To keep the scenario more manageable (for myself) I have done the following:
 --      1. Keep all event calls in control.lua (here)
 --      2. Put all config options in config.lua and provided an example-config.lua file too.
@@ -100,7 +83,7 @@ script.on_init(function(event)
         log("Vanilla spawns:")
         log(serpent.block(global.vanillaSpawns))
     end
-    
+
     Compat.handle_factoriomaps()
 
     if (global.ocfg.enable_coin_shop and global.ocfg.enable_chest_sharing) then
@@ -278,7 +261,7 @@ script.on_event(defines.events.on_tick, function(event)
 end)
 
 
-script.on_event(defines.events.on_sector_scanned, function (event)   
+script.on_event(defines.events.on_sector_scanned, function (event)
     if global.ocfg.enable_regrowth then
         RegrowthSectorScan(event)
     end
