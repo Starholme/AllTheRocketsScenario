@@ -144,7 +144,7 @@ function CreateGameOptionsTab(tab_container, player)
 
     -- ADMIN CONTROLS
     if (player.admin) then
-        player_list = {}
+        local player_list = {}
         for _,player in pairs(game.connected_players) do
             table.insert(player_list, player.name)
         end
