@@ -78,10 +78,6 @@ script.on_init(function(event)
 
     Compat.handle_factoriomaps()
 
-    if (global.ocfg.enable_coin_shop and global.ocfg.enable_magic_factories) then
-        MagicFactoriesInit()
-    end
-
     OarcMapFeatureInitGlobalCounters()
     OarcAutoDeconOnInit()
 
@@ -231,10 +227,6 @@ script.on_event(defines.events.on_tick, function(event)
     end
 
     DelayedSpawnOnTick()
-
-    if (global.ocfg.enable_magic_factories) then
-        MagicFactoriesOnTick()
-    end
 
     TimeoutSpeechBubblesOnTick()
     FadeoutRenderOnTick()

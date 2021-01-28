@@ -7,7 +7,6 @@ local mod_gui = require("mod-gui")
 
 OARC_STORE_MAP_TEXT =
 {
-    special_chunks = "Map features that can be built on the special empty chunks found on the map. You must be standing inside an empty special chunk to be able to build these. Each player can only build one of each type. [color=red]THESE FEATURES ARE PERMANENT AND CAN NOT BE REMOVED![/color]",
     special_buttons = "Special buttons like teleporting home and placing waterfill.",
     reset_buttons = "Reset your player and base. [color=red]Choose carefully! Can't be undone.[/color] If you don't own a base and your own force, some options may not be available to you."
 }
@@ -16,39 +15,16 @@ OARC_STORE_MAP_TEXT =
 -- Cost = initial + (additional * ( N^multiplier ))
 OARC_STORE_MAP_FEATURES =
 {
-    special_chunks = {
-        ["electric-furnace"] = {
-            initial_cost = 1000,
-            additional_cost = 1000,
-            multiplier_cost = 2,
-            -- limit = 3,
-            text="Build a special furnace chunk here. Contains 4 furnaces that run at very high speeds. [color=red]Requires energy from the shared storage. Modules have no effect![/color]"},
-        ["oil-refinery"] = {
-            initial_cost = 1000,
-            additional_cost = 1000,
-            multiplier_cost = 2,
-            -- limit = 3,
-            text="Build a special oil refinery chunk here. Contains 2 refineries and some chemical plants that run at very high speeds. [color=red]Requires energy from the shared storage. Modules have no effect![/color]"},
-        ["assembling-machine-3"] = {
-            initial_cost = 1000,
-            additional_cost = 1000,
-            multiplier_cost = 2,
-            -- limit = 3,
-            text="Build a special assembly machine chunk here. Contains 6 assembling machines that run at very high speeds. [color=red]Requires energy from the shared storage. Modules have no effect![/color]"},
-        ["centrifuge"] = {
-            initial_cost = 1000,
-            additional_cost = 1000,
-            multiplier_cost = 2,
-            -- limit = 1,
-            text="Build a special centrifuge chunk here. Contains 1 centrifuge that runs at very high speeds. [color=red]Requires energy from the shared storage. Modules have no effect![/color]"},
-    },
-
     special_buttons = {
         ["assembling-machine-1"] = {
             initial_cost = 10,
+            -- additional_cost = 1000,
+            -- multiplier_cost = 2,
+            -- limit = 3,
             text="Teleport home."},
         ["offshore-pump"] = {
             initial_cost = 50,
+            additional_cost = 1,
             text="Converts the closest empty wooden chest into a water tile!"
         }
     },
@@ -88,11 +64,6 @@ function CreateMapFeatureStoreTab(tab_container, player)
     line.style.bottom_margin = 5
 
     for category,section in pairs(OARC_STORE_MAP_FEATURES) do
-
-        if (not global.ocfg.enable_magic_factories and (category == "special_chunks")) then
-            goto SKIP_CATEGORY
-        end
-
         AddLabel(tab_container,
                 nil,
                 OARC_STORE_MAP_TEXT[category],
@@ -231,15 +202,7 @@ function OarcMapFeatureStoreButton(event)
 
     -- Each button has a special function
     local result = false
-    if (button.name == "electric-furnace") then
-        result = RequestSpawnSpecialChunk(player, SpawnFurnaceChunk, button.name)
-    elseif (button.name == "oil-refinery") then
-        result = RequestSpawnSpecialChunk(player, SpawnOilRefineryChunk, button.name)
-    elseif (button.name == "assembling-machine-3") then
-        result = RequestSpawnSpecialChunk(player, SpawnAssemblyChunk, button.name)
-    elseif (button.name == "centrifuge") then
-        result = RequestSpawnSpecialChunk(player, SpawnCentrifugeChunk, button.name)
-    elseif (button.name == "assembling-machine-1") then
+    if (button.name == "assembling-machine-1") then
         SendPlayerToSpawn(player)
         result = true
     elseif (button.name == "offshore-pump") then

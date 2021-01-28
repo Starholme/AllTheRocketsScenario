@@ -67,9 +67,6 @@ ENABLE_RESEARCH_QUEUE = true
 -- This enables coin drops from enemies and a shop (GUI) to buy stuff from.
 ENABLE_COIN_SHOP = true
 
--- Enable magic chunks around the map that let you buy powerful factories that smelt/assemble/process very very quickly.
-ENABLE_MAGIC_FACTORIES = false -- REQUIRES ENABLE_COIN_SHOP=true!
-
 -- This inhibits enemy attacks on bases where all players are offline.
 -- Not 100% guaranteed.
 ENABLE_OFFLINE_PROTECTION = true
