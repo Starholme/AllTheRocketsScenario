@@ -2,7 +2,6 @@
 -- May 2020
 -- Adding microtransactions.
 
-require("lib/shared_chests")
 require("lib/map_features")
 local mod_gui = require("mod-gui")
 
