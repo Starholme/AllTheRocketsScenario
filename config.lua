@@ -16,14 +16,14 @@ SERVER_MSG = "Rules: Be polite. Ask before changing other players's stuff. Have 
 "This server is running a custom scenario that allows individual starting areas on the map.\n"..
 "Subspace Storage is shared across all ATR servers!"
 
-SCENARIO_INFO_MSG = "Latest updates in this scenario version:\n"..
-"Item & energy sharing system! No attacks on your base while you are offline!\n"..
+SCENARIO_INFO_MSG = "Latest updates:\n"..
+"Item & energy sharing system!\n"..
 "This scenario gives you and/or your friends your own starting area.\n"..
 "You can be on the main team or your own. All teams are friendly.\n"..
 "If you leave in the first 30 minutes, your base and character will be deleted!"
 
-CONTACT_MSG = "Contact: SteamID:Starholme | Russel.Delainey@gmail.com | Discord:Starholme#3744"
-DISCORD_INV = "Not yet! Someday..."
+CONTACT_MSG = "SteamID:Starholme | Russel.Delainey@gmail.com | Discord:Starholme#3744"
+DISCORD_INV = ""
 
 ------------------------------------------------------------------------------------------------------------------------
 -- Module Enables

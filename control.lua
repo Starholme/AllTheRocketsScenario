@@ -82,7 +82,8 @@ script.on_init(function(event)
     OarcAutoDeconOnInit()
 
     -- Display starting point text as a display of dominance.
-    RenderPermanentGroundText(game.surfaces[GAME_SURFACE_NAME], {x=-29,y=-30}, 40, "OARC", {0.9, 0.7, 0.3, 0.8})
+    RenderPermanentGroundText(game.surfaces[GAME_SURFACE_NAME], {x=-15.5,y=-23}, 30, "ATR", {0.9, 0.7, 0.3, 0.8})
+    RenderPermanentGroundText(game.surfaces[GAME_SURFACE_NAME], {x=-17.75,y=4}, 8, "OARC    + Clusterio", {0.9, 0.7, 0.3, 0.8})
 end)
 
 script.on_load(function()
