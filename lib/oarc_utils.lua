@@ -1345,3 +1345,38 @@ function Autofill(event)
         AutoFillVehicle(player, eventEntity)
     end
 end
+
+-- Returns NIL or position of destroyed chest.
+function FindClosestWoodenChestAndDestroy(player)
+    local target_chest = FindClosestPlayerOwnedEntity(player, "wooden-chest", 16)
+    if (not target_chest) then
+        player.print("Failed to find wooden-chest?")
+        return nil
+    end
+
+    if (not target_chest.get_inventory(defines.inventory.chest).is_empty()) then
+        player.print("Chest is NOT empty! Please empty it and try again.")
+        return nil
+    end
+
+    local pos = target_chest.position
+    if (not target_chest.destroy()) then
+        player.print("ERROR - Can't remove wooden chest??")
+        return nil
+    end
+
+    return {x=math.floor(pos.x),y=math.floor(pos.y)}
+end
+
+function ConvertWoodenChestToWaterFill(player)
+    local pos = FindClosestWoodenChestAndDestroy(player)
+    if (pos) then
+        if (getDistance(pos, player.position) > 2) then
+            player.surface.set_tiles({[1]={name = "water", position=pos}})
+            return true
+        else
+            player.print("Failed to place waterfill. Don't stand so close FOOL!")
+        end
+    end
+    return false
+end

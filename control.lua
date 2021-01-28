@@ -15,7 +15,6 @@ require("lib/player_list")
 require("lib/rocket_launch")
 require("lib/admin_commands")
 require("lib/regrowth_map")
-require("lib/shared_chests")
 require("lib/notepad")
 require("lib/map_features")
 require("lib/oarc_buy")
@@ -78,10 +77,6 @@ script.on_init(function(event)
     end
 
     Compat.handle_factoriomaps()
-
-    if (global.ocfg.enable_coin_shop and global.ocfg.enable_chest_sharing) then
-        SharedChestInitItems()
-    end
 
     if (global.ocfg.enable_coin_shop and global.ocfg.enable_magic_factories) then
         MagicFactoriesInit()
@@ -237,11 +232,7 @@ script.on_event(defines.events.on_tick, function(event)
 
     DelayedSpawnOnTick()
 
-    if global.ocfg.enable_chest_sharing then
-        SharedChestsOnTick()
-    end
-
-    if (global.ocfg.enable_chest_sharing and global.ocfg.enable_magic_factories) then
+    if (global.ocfg.enable_magic_factories) then
         MagicFactoriesOnTick()
     end
 

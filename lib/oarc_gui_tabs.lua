@@ -15,7 +15,6 @@ OARC_SPAWN_CTRL_GUI_NAME = "Spawn Controls"
 OARC_PLAYER_LIST_GUI_TAB_NAME = "Players"
 OARC_TAGS_GUI_TAB_NAME = "Name Tags"
 OARC_ROCKETS_GUI_TAB_NAME = "Rockets"
-OARC_SHARED_ITEMS_GUI_TAB_NAME = "Shared Items"
 OARC_NOTEPAD_GUI_TAB_NAME = "Notepad"
 
 local OARC_GUI_TAB_CONTENT_FUNCTIONS = {}
@@ -24,7 +23,6 @@ OARC_GUI_TAB_CONTENT_FUNCTIONS["Spawn Controls"] = CreateSpawnCtrlGuiTab
 OARC_GUI_TAB_CONTENT_FUNCTIONS["Players"] = CreatePlayerListGuiTab
 OARC_GUI_TAB_CONTENT_FUNCTIONS["Name Tags"] = CreateTagGuiTab
 OARC_GUI_TAB_CONTENT_FUNCTIONS["Rockets"] = CreateRocketGuiTab
-OARC_GUI_TAB_CONTENT_FUNCTIONS["Shared Items"] = CreateSharedItemsGuiTab
 OARC_GUI_TAB_CONTENT_FUNCTIONS["Notepad"] = CreateNotepadGuiTab
 
 function InitOarcGuiTabs(player)
@@ -55,14 +53,9 @@ function InitOarcGuiTabs(player)
         SetOarcGuiTabEnabled(player, OARC_ROCKETS_GUI_TAB_NAME, true)
     end
 
-    if global.ocfg.enable_chest_sharing then
-        AddOarcGuiTab(player, OARC_SHARED_ITEMS_GUI_TAB_NAME)
-        SetOarcGuiTabEnabled(player, OARC_SHARED_ITEMS_GUI_TAB_NAME, true)
-    end
-
     AddOarcGuiTab(player, OARC_NOTEPAD_GUI_TAB_NAME)
     SetOarcGuiTabEnabled(player, OARC_NOTEPAD_GUI_TAB_NAME, true)
-    
+
     HideOarcGui(player)
 end
 
