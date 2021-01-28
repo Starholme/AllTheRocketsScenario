@@ -1371,8 +1371,16 @@ end
 function ConvertWoodenChestToWaterFill(player)
     local pos = FindClosestWoodenChestAndDestroy(player)
     if (pos) then
-        if (getDistance(pos, player.position) > 2) then
-            player.surface.set_tiles({[1]={name = "water", position=pos}})
+        if (getDistance(pos, player.position) > 4) then
+            local tiles = {}
+            local tileNum = 1
+            for x=-1,1,1 do
+                for y=-1,1,1 do
+                    tiles[tileNum] = {name = "water", position={pos.x + x, pos.y + y}}
+                    tileNum = tileNum + 1
+                end
+            end
+            player.surface.set_tiles(tiles)
             return true
         else
             player.print("Failed to place waterfill. Don't stand so close FOOL!")
