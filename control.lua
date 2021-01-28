@@ -79,10 +79,6 @@ script.on_init(function(event)
 
     Compat.handle_factoriomaps()
 
-    if (global.ocfg.enable_coin_shop and global.ocfg.enable_chest_sharing) then
-        SharedChestInitItems()
-    end
-
     if (global.ocfg.enable_coin_shop and global.ocfg.enable_magic_factories) then
         MagicFactoriesInit()
     end
@@ -237,11 +233,7 @@ script.on_event(defines.events.on_tick, function(event)
 
     DelayedSpawnOnTick()
 
-    if global.ocfg.enable_chest_sharing then
-        SharedChestsOnTick()
-    end
-
-    if (global.ocfg.enable_chest_sharing and global.ocfg.enable_magic_factories) then
+    if (global.ocfg.enable_magic_factories) then
         MagicFactoriesOnTick()
     end
 

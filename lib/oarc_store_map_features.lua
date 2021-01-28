@@ -8,7 +8,6 @@ local mod_gui = require("mod-gui")
 
 OARC_STORE_MAP_TEXT =
 {
-    special_chests = "Special buildings for sharing or monitoring items and energy. This will convert the closest wooden chest (to you) within 16 tiles into a special building of your choice. Make sure to leave enough space! The combinators and accumulators can take up several tiles around them.",
     special_chunks = "Map features that can be built on the special empty chunks found on the map. You must be standing inside an empty special chunk to be able to build these. Each player can only build one of each type. [color=red]THESE FEATURES ARE PERMANENT AND CAN NOT BE REMOVED![/color]",
     special_buttons = "Special buttons like teleporting home and placing waterfill.",
     reset_buttons = "Reset your player and base. [color=red]Choose carefully! Can't be undone.[/color] If you don't own a base and your own force, some options may not be available to you."
@@ -18,43 +17,6 @@ OARC_STORE_MAP_TEXT =
 -- Cost = initial + (additional * ( N^multiplier ))
 OARC_STORE_MAP_FEATURES =
 {
-    special_chests = {
-        ["logistic-chest-storage"] = {
-            initial_cost = 200,
-            additional_cost = 20,
-            multiplier_cost = 2,
-            max_cost = 2000,
-            -- limit = 100,
-            text="Input chest for storing shared items."},
-        ["logistic-chest-requester"] = {
-            initial_cost = 200,
-            additional_cost = 50,
-            multiplier_cost = 2,
-            max_cost = 4000,
-            -- limit = 100,
-            text="Output chest for requesting shared items."},
-        ["constant-combinator"] = {
-            initial_cost = 50,
-            text="Combinator setup to monitor shared items."},
-        ["accumulator"] = {
-            initial_cost = 200,
-            additional_cost = 50,
-            multiplier_cost = 2,
-            max_cost = 2000,
-            -- limit = 100,
-            text="INPUT for shared energy system. [color=red]Only starts to share once it is charged to 50%.[/color]"},
-        ["electric-energy-interface"] = {
-            initial_cost = 200,
-            additional_cost = 100,
-            multiplier_cost = 2,
-            max_cost = 4000,
-            -- limit = 100,
-            text="OUTPUT for shared energy system. [color=red]Will NOT power other special eletric interfaces! You especially can't power special chunks with this![/color]"},
-        ["deconstruction-planner"] = {
-            initial_cost = 0,
-            text="Removes the closest special building within range. NO REFUNDS!"},
-    },
-
     special_chunks = {
         ["electric-furnace"] = {
             initial_cost = 1000,
@@ -127,10 +89,6 @@ function CreateMapFeatureStoreTab(tab_container, player)
     line.style.bottom_margin = 5
 
     for category,section in pairs(OARC_STORE_MAP_FEATURES) do
-
-        if (not global.ocfg.enable_chest_sharing and (category == "special_chests")) then
-            goto SKIP_CATEGORY
-        end
 
         if (not global.ocfg.enable_magic_factories and (category == "special_chunks")) then
             goto SKIP_CATEGORY
@@ -274,19 +232,7 @@ function OarcMapFeatureStoreButton(event)
 
     -- Each button has a special function
     local result = false
-    if (button.name == "logistic-chest-storage") then
-        result = ConvertWoodenChestToSharedChestInput(player)
-    elseif (button.name == "logistic-chest-requester") then
-        result = ConvertWoodenChestToSharedChestOutput(player)
-    elseif (button.name == "constant-combinator") then
-        result = ConvertWoodenChestToSharedChestCombinators(player)
-    elseif (button.name == "accumulator") then
-        result = ConvertWoodenChestToShareEnergyInput(player)
-    elseif (button.name == "electric-energy-interface") then
-        result = ConvertWoodenChestToShareEnergyOutput(player)
-    elseif (button.name == "deconstruction-planner") then
-        result = DestroyClosestSharedChestEntity(player)
-    elseif (button.name == "electric-furnace") then
+    if (button.name == "electric-furnace") then
         result = RequestSpawnSpecialChunk(player, SpawnFurnaceChunk, button.name)
     elseif (button.name == "oil-refinery") then
         result = RequestSpawnSpecialChunk(player, SpawnOilRefineryChunk, button.name)
