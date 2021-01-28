@@ -90,9 +90,6 @@ function CreateGameOptionsTab(tab_container, player)
     if (global.ocfg.enable_regrowth) then
         soft_mods_string = soft_mods_string .. ", Regrowth"
     end
-    if (global.ocfg.enable_magic_factories) then
-        soft_mods_string = soft_mods_string .. ", Special Map Chunks"
-    end
     if (global.ocfg.enable_offline_protect) then
         soft_mods_string = soft_mods_string .. ", Offline Attack Inhibitor"
     end
