@@ -168,12 +168,12 @@ end)
 ----------------------------------------
 -- Player Events
 ----------------------------------------
-script.on_event(defines.events.on_player_joined_game, function(event)
+local function OnPlayerJoinedGame(event)
     PlayerJoinedMessages(event)
     ServerWriteFile("player_events", game.players[event.player_index].name .. " joined the game." .. "\n")
-end)
+end
 
-script.on_event(defines.events.on_player_created, function(event)
+local function OnPlayerCreated(event)
     local player = game.players[event.player_index]
 
     -- Move the player to the game surface immediately.
@@ -190,9 +190,9 @@ script.on_event(defines.events.on_player_created, function(event)
     if global.ocfg.enable_coin_shop then
         InitOarcStoreGuiTabs(player)
     end
-end)
+end
 
-script.on_event(defines.events.on_player_respawned, function(event)
+local function OnPlayerRespawned(event)
     SeparateSpawnsPlayerRespawned(event)
 
     PlayerRespawnItems(event)
@@ -200,9 +200,9 @@ script.on_event(defines.events.on_player_respawned, function(event)
     if global.ocfg.enable_long_reach then
         GivePlayerLongReach(game.players[event.player_index])
     end
-end)
+end
 
-script.on_event(defines.events.on_player_left_game, function(event)
+local function OnPlayerLeftGame(event)
     ServerWriteFile("player_events", game.players[event.player_index].name .. " left the game." .. "\n")
     local player = game.players[event.player_index]
 
@@ -212,17 +212,14 @@ script.on_event(defines.events.on_player_left_game, function(event)
         SendBroadcastMsg(player.name .. "'s base was marked for immediate clean up because they left within "..global.ocfg.minimum_online_time.." minutes of joining.")
         RemoveOrResetPlayer(player, true, true, true, true)
     end
-end)
+end
 
--- script.on_event(defines.events.on_player_removed, function(event)
-    -- Player is already deleted when this is called.
--- end)
 
 ----------------------------------------
 -- On tick events. Stuff that needs to happen at regular intervals.
 -- Delayed events, delayed spawns, ...
 ----------------------------------------
-script.on_event(defines.events.on_tick, function(event)
+local function OnTick(event)
     if global.ocfg.enable_regrowth then
         RegrowthOnTick()
         RegrowthForceRemovalOnTick()
@@ -236,20 +233,19 @@ script.on_event(defines.events.on_tick, function(event)
     if global.ocfg.enable_miner_decon then
         OarcAutoDeconOnTick()
     end
-end)
+end
 
 
-script.on_event(defines.events.on_sector_scanned, function (event)
+local function OnSectorScanned(event)
     if global.ocfg.enable_regrowth then
         RegrowthSectorScan(event)
     end
-end)
-
+end
 
 ----------------------------------------
 -- Various on "built" events
 ----------------------------------------
-script.on_event(defines.events.on_built_entity, function(event)
+local function OnBuiltEntity(event)
     if global.ocfg.enable_autofill then
         Autofill(event)
     end
@@ -263,7 +259,7 @@ script.on_event(defines.events.on_built_entity, function(event)
         SetItemBlueprintTimeToLive(event)
     end
 
-end)
+end
 
 local function OnGuiClosed(event)
     OarcGuiOnGuiClosedEvent(event)
@@ -284,6 +280,13 @@ return {
         [defines.events.on_console_chat] = global_chat.ChatEvent,
         [defines.events.script_raised_built] = RegrowthScriptRaisedBuilt,
         [defines.events.on_player_built_tile] = RegrowthOnPlayerBuiltTile,
-        [defines.events.on_robot_built_entity] = RegrowthOnRobotBuiltEntity
+        [defines.events.on_robot_built_entity] = RegrowthOnRobotBuiltEntity,
+        [defines.events.on_built_entity] = OnBuiltEntity,
+        [defines.events.on_sector_scanned] = OnSectorScanned,
+        [defines.events.on_tick] = OnTick,
+        [defines.events.on_player_left_game] = OnPlayerLeftGame,
+        [defines.events.on_player_respawned] = OnPlayerRespawned,
+        [defines.events.on_player_created] = OnPlayerCreated,
+        [defines.events.on_player_joined_game] = OnPlayerJoinedGame
     }
 }
