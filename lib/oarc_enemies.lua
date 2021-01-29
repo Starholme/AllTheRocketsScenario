@@ -20,7 +20,9 @@
 -- Generic Utility Includes
 require("lib/oarc_utils")
 
-function OarcModifyEnemyGroup(group)
+function OarcModifyEnemyGroup(event)
+    if (not global.ocfg.enable_offline_protect) then return end
+    local group = event.group
 
     -- Check validity
     if ((group == nil) or (group.command == nil) or (group.force.name ~= "enemy")) then

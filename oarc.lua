@@ -336,16 +336,6 @@ script.on_event(defines.events.on_biter_base_built, function(event)
     end
 end)
 
-----------------------------------------
--- On unit group finished gathering
--- This is where I remove biter waves on offline players
-----------------------------------------
-script.on_event(defines.events.on_unit_group_finished_gathering, function(event)
-    if (global.ocfg.enable_offline_protect) then
-        OarcModifyEnemyGroup(event.group)
-    end
-end)
-
 local function OnGuiClosed(event)
     OarcGuiOnGuiClosedEvent(event)
     OarcStoreOnGuiClosedEvent(event)
@@ -357,6 +347,7 @@ return {
         [defines.events.on_post_entity_died] = CoinsFromEnemiesOnPostEntityDied,
         [defines.events.on_gui_closed] = OnGuiClosed,
         [defines.events.on_gui_text_changed] = NotepadOnGuiTextChange,
-        [defines.events.on_character_corpse_expired] = DropGravestoneChestFromCorpse
+        [defines.events.on_character_corpse_expired] = DropGravestoneChestFromCorpse,
+        [defines.events.on_unit_group_finished_gathering] = OarcModifyEnemyGroup
     }
 }
