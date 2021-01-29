@@ -375,9 +375,15 @@ script.on_event(defines.events.on_gui_closed, function(event)
     end
 end)
 
+local function OnGuiClosed(event)
+    OarcGuiOnGuiClosedEvent(event)
+    OarcStoreOnGuiClosedEvent(event)
+end
+
 return {
     events = {
         [defines.events.on_resource_depleted] = OarcAutoDeconOnResourceDepleted,
-        [defines.events.on_post_entity_died] = CoinsFromEnemiesOnPostEntityDied
+        [defines.events.on_post_entity_died] = CoinsFromEnemiesOnPostEntityDied,
+        [defines.events.on_gui_closed] = OnGuiClosed
     }
 }

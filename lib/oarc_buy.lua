@@ -80,12 +80,12 @@ function ClickOarcStoreButton(event)
     -- Don't allow any clicks on the store while player is dead!
     if (not player or player.ticks_to_respawn) then
         if (DoesOarcStoreExist(player)) then
-            HideOarcStore(player)   
+            HideOarcStore(player)
         end
         return
     end
 
-    if (button.name == "oarc_store") then 
+    if (button.name == "oarc_store") then
         if (not DoesOarcStoreExist(player)) then
             CreateOarcStoreTabsPane(player)
         else
@@ -232,15 +232,16 @@ function SetOarcStoreTabEnabled(player, tab_name, enable)
 end
 
 function OarcStoreOnGuiClosedEvent(event)
+    if (not global.ocfg.enable_coin_shop) then return end
     if (event.element and (event.element.name == OARC_STORE_GUI)) then
         HideOarcStore(game.players[event.player_index])
     end
 end
 
 commands.add_command("donate-coins", "Toss a Coin to Your Witcher", function(command)
-    
+
     local player = game.players[command.player_index]
-    
+
     if (command.parameter == nil) then
         player.print("Invalid parameters? /donate-coins [username] [amount]")
         return
@@ -264,10 +265,10 @@ commands.add_command("donate-coins", "Toss a Coin to Your Witcher", function(com
     end
 
     -- Validate all the things...
-    if (game.players[target] and 
-        not game.players[target].ticks_to_respawn and 
-        amount and 
-        player and 
+    if (game.players[target] and
+        not game.players[target].ticks_to_respawn and
+        amount and
+        player and
         player.get_main_inventory()) then
         local target_player = game.players[target]
         local amount_number = tonumber(amount)
