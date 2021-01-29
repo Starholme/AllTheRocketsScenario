@@ -12,6 +12,17 @@ local function ShareChatBetweenForces(player, msg)
     end
 end
 
+local function ChatEvent(event)
+    if (event.player_index) then
+        ServerWriteFile("server_chat", game.players[event.player_index].name .. ": " .. event.message .. "\n")
+    end
+    if (global.ocfg.enable_shared_chat) then
+        if (event.player_index ~= nil) then
+            ShareChatBetweenForces(game.players[event.player_index], event.message)
+        end
+    end
+end
+
 return {
-    ShareChatBetweenForces = ShareChatBetweenForces
+    ChatEvent = ChatEvent
 }
