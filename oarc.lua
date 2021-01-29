@@ -321,21 +321,6 @@ script.on_event(defines.events.on_research_finished, function(event)
     end
 end)
 
-----------------------------------------
--- On Entity Spawned and On Biter Base Built
--- This is where I modify biter spawning based on location and other factors.
-----------------------------------------
-script.on_event(defines.events.on_entity_spawned, function(event)
-    if (global.ocfg.modified_enemy_spawning) then
-        ModifyEnemySpawnsNearPlayerStartingAreas(event)
-    end
-end)
-script.on_event(defines.events.on_biter_base_built, function(event)
-    if (global.ocfg.modified_enemy_spawning) then
-        ModifyEnemySpawnsNearPlayerStartingAreas(event)
-    end
-end)
-
 local function OnGuiClosed(event)
     OarcGuiOnGuiClosedEvent(event)
     OarcStoreOnGuiClosedEvent(event)

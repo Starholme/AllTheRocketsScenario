@@ -423,6 +423,7 @@ end
 -- This is intended to downgrade any biters/spitters spawning near player bases.
 -- I'm not sure the performance impact of this but I'm hoping it's not bad.
 function ModifyEnemySpawnsNearPlayerStartingAreas(event)
+    if (not global.ocfg.modified_enemy_spawning) then return end
 
     if (not event.entity or not (event.entity.force.name == "enemy") or not event.entity.position) then
         log("ModifyBiterSpawns - Unexpected use.")
