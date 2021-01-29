@@ -375,22 +375,9 @@ script.on_event(defines.events.on_gui_closed, function(event)
     end
 end)
 
-----------------------------------------
--- On enemies killed
--- For coin generation and stuff
-----------------------------------------
-script.on_event(defines.events.on_post_entity_died, function(event)
-    if (game.surfaces[event.surface_index].name ~= GAME_SURFACE_NAME) then return end
-    if global.ocfg.enable_coin_shop then
-        CoinsFromEnemiesOnPostEntityDied(event)
-    end
-end,
-{{filter="type", type = "unit"}, {filter="type", type = "unit-spawner"}, {filter="type", type = "turret"}})
-
-
 return {
     events = {
         [defines.events.on_resource_depleted] = OarcAutoDeconOnResourceDepleted,
-        [defines.events.on_post_entity_died] =
+        [defines.events.on_post_entity_died] = CoinsFromEnemiesOnPostEntityDied
     }
 }

@@ -29,6 +29,8 @@ COIN_GENERATION_CHANCES = {
 }
 
 function CoinsFromEnemiesOnPostEntityDied(event)
+    if (game.surfaces[event.surface_index].name ~= GAME_SURFACE_NAME) then return end
+    if (not global.ocfg.enable_coin_shop) then return end
     if (not event.prototype or not event.prototype.name) then return end
 
     local coin_chance = nil
