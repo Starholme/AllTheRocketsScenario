@@ -559,11 +559,6 @@ function RemoveOrResetPlayer(player, remove_player, remove_force, remove_base, i
             game.merge_forces(player_old_force, "neutral")
         end
     end
-
-    -- Remove the character completely
-    if (remove_player) then
-        game.remove_offline_players({player})
-    end
 end
 
 function UniqueSpawnCleanupRemove(playerName, cleanup, immediate)
