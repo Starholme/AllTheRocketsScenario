@@ -308,18 +308,6 @@ script.on_event(defines.events.on_console_chat, function(event)
     end
 end)
 
-----------------------------------------
--- On Research Finished
--- This is where you can permanently remove researched techs
-----------------------------------------
-script.on_event(defines.events.on_research_finished, function(event)
-    if global.ocfg.lock_goodies_rocket_launch and
-        (not global.ocore.satellite_sent or not global.ocore.satellite_sent[event.research.force.name]) then
-        for _,v in ipairs(LOCKED_RECIPES) do
-            RemoveRecipe(event.research.force, v.r)
-        end
-    end
-end)
 
 local function OnGuiClosed(event)
     OarcGuiOnGuiClosedEvent(event)
@@ -333,6 +321,9 @@ return {
         [defines.events.on_gui_closed] = OnGuiClosed,
         [defines.events.on_gui_text_changed] = NotepadOnGuiTextChange,
         [defines.events.on_character_corpse_expired] = DropGravestoneChestFromCorpse,
-        [defines.events.on_unit_group_finished_gathering] = OarcModifyEnemyGroup
+        [defines.events.on_unit_group_finished_gathering] = OarcModifyEnemyGroup,
+        [defines.events.on_biter_base_built] = ModifyEnemySpawnsNearPlayerStartingAreas,
+        [defines.events.on_entity_spawned] = ModifyEnemySpawnsNearPlayerStartingAreas,
+        [defines.events.on_research_finished] = LockGoodiesUntilRocketLaunch
     }
 }

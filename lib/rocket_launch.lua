@@ -76,3 +76,11 @@ function CreateRocketGuiTab(tab_container, player)
     end
 end
 
+function LockGoodiesUntilRocketLaunch (event)
+    if global.ocfg.lock_goodies_rocket_launch and
+        (not global.ocore.satellite_sent or not global.ocore.satellite_sent[event.research.force.name]) then
+        for _,v in ipairs(LOCKED_RECIPES) do
+            RemoveRecipe(event.research.force, v.r)
+        end
+    end
+end
