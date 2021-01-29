@@ -135,6 +135,7 @@ function RegrowthMarkAreaSafeGivenChunkPos(c_pos, chunk_radius, permanent)
     end
 end
 
+
 -- Marks a safe area around a TILE position to be relatively permanent.
 function RegrowthMarkAreaSafeGivenTilePos(pos, chunk_radius, permanent)
     if (global.rg == nil) then return end
@@ -186,7 +187,7 @@ function RefreshPlayerArea()
     player_index = GetNextPlayerIndex()
     if (player_index and game.connected_players[player_index]) then
         local player = game.connected_players[player_index]
-        
+
         if (not player.character) then return end
         if (player.character.surface.name ~= GAME_SURFACE_NAME) then return end
 
@@ -206,7 +207,7 @@ function RegrowthSingleStepArray()
     local next_chunk = global.rg.chunk_iter()
 
     -- Check if we reached the end
-    if (not next_chunk) then 
+    if (not next_chunk) then
         global.rg.chunk_iter = game.surfaces[GAME_SURFACE_NAME].get_chunks()
         next_chunk = global.rg.chunk_iter()
     end
@@ -214,7 +215,7 @@ function RegrowthSingleStepArray()
     -- Do we have it in our map?
     if (not global.rg.map[next_chunk.x] or not global.rg.map[next_chunk.x][next_chunk.y]) then
         return -- Chunk isn't in our map so we don't care?
-    end 
+    end
 
     -- If the chunk has timed out, add it to the removal list
     local c_timer = global.rg.map[next_chunk.x][next_chunk.y]
@@ -323,7 +324,7 @@ function WorldEaterSingleStep()
     local next_chunk = global.rg.world_eater_iter()
 
     -- Check if we reached the end
-    if (not next_chunk) then 
+    if (not next_chunk) then
         global.rg.world_eater_iter = game.surfaces[GAME_SURFACE_NAME].get_chunks()
         next_chunk = global.rg.world_eater_iter()
     end
@@ -331,7 +332,7 @@ function WorldEaterSingleStep()
     -- Do we have it in our map?
     if (not global.rg.map[next_chunk.x] or not global.rg.map[next_chunk.x][next_chunk.y]) then
         return -- Chunk isn't in our map so we don't care?
-    end 
+    end
 
     -- Search for any abandoned radars and destroy them?
     local entities = game.surfaces[GAME_SURFACE_NAME].find_entities_filtered{area=next_chunk.area,
@@ -381,5 +382,35 @@ function WorldEaterSingleStep()
             -- SendBroadcastMsg(next_chunk.x .. "," .. next_chunk.y .. " WorldEaterSingleStep - NO ENTITIES FOUND")
             global.rg.map[next_chunk.x][next_chunk.y] = game.tick -- Set the timer on it.
         end
+    end
+end
+
+
+----------------------------------------
+-- On script_raised_built. This should help catch mods that
+-- place items that don't count as player_built and robot_built.
+-- Specifically FARL.
+----------------------------------------
+function RegrowthScriptRaisedBuilt(event)
+    if global.ocfg.enable_regrowth then
+        if (event.entity.surface.name ~= GAME_SURFACE_NAME) then return end
+        RegrowthMarkAreaSafeGivenTilePos(event.entity.position, 2, false)
+    end
+end
+
+function RegrowthOnPlayerBuiltTile(event)
+    if global.ocfg.enable_regrowth then
+        if (game.surfaces[event.surface_index].name ~= GAME_SURFACE_NAME) then return end
+
+        for k,v in pairs(event.tiles) do
+            RegrowthMarkAreaSafeGivenTilePos(v.position, 2, false)
+        end
+    end
+end
+
+function RegrowthOnRobotBuiltEntity(event)
+    if global.ocfg.enable_regrowth then
+        if (event.created_entity.surface.name ~= GAME_SURFACE_NAME) then return end
+        RegrowthMarkAreaSafeGivenTilePos(event.created_entity.position, 2, false)
     end
 end

@@ -265,35 +265,6 @@ script.on_event(defines.events.on_built_entity, function(event)
 
 end)
 
-script.on_event(defines.events.on_robot_built_entity, function (event)
-    if global.ocfg.enable_regrowth then
-        if (event.created_entity.surface.name ~= GAME_SURFACE_NAME) then return end
-        RegrowthMarkAreaSafeGivenTilePos(event.created_entity.position, 2, false)
-    end
-end)
-
-script.on_event(defines.events.on_player_built_tile, function (event)
-    if global.ocfg.enable_regrowth then
-        if (game.surfaces[event.surface_index].name ~= GAME_SURFACE_NAME) then return end
-
-        for k,v in pairs(event.tiles) do
-            RegrowthMarkAreaSafeGivenTilePos(v.position, 2, false)
-        end
-    end
-end)
-
-----------------------------------------
--- On script_raised_built. This should help catch mods that
--- place items that don't count as player_built and robot_built.
--- Specifically FARL.
-----------------------------------------
-script.on_event(defines.events.script_raised_built, function(event)
-    if global.ocfg.enable_regrowth then
-        if (event.entity.surface.name ~= GAME_SURFACE_NAME) then return end
-        RegrowthMarkAreaSafeGivenTilePos(event.entity.position, 2, false)
-    end
-end)
-
 local function OnGuiClosed(event)
     OarcGuiOnGuiClosedEvent(event)
     OarcStoreOnGuiClosedEvent(event)
@@ -310,6 +281,9 @@ return {
         [defines.events.on_biter_base_built] = ModifyEnemySpawnsNearPlayerStartingAreas,
         [defines.events.on_entity_spawned] = ModifyEnemySpawnsNearPlayerStartingAreas,
         [defines.events.on_research_finished] = LockGoodiesUntilRocketLaunch,
-        [defines.events.on_console_chat] = global_chat.ChatEvent
+        [defines.events.on_console_chat] = global_chat.ChatEvent,
+        [defines.events.script_raised_built] = RegrowthScriptRaisedBuilt,
+        [defines.events.on_player_built_tile] = RegrowthOnPlayerBuiltTile,
+        [defines.events.on_robot_built_entity] = RegrowthOnRobotBuiltEntity
     }
 }
