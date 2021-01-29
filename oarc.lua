@@ -388,11 +388,9 @@ end,
 {{filter="type", type = "unit"}, {filter="type", type = "unit-spawner"}, {filter="type", type = "turret"}})
 
 
-----------------------------------------
--- Scripted auto decon for miners...
-----------------------------------------
-script.on_event(defines.events.on_resource_depleted, function(event)
-    if global.ocfg.enable_miner_decon then
-        OarcAutoDeconOnResourceDepleted(event)
-    end
-end)
+return {
+    events = {
+        [defines.events.on_resource_depleted] = OarcAutoDeconOnResourceDepleted,
+        [defines.events.on_post_entity_died] =
+    }
+}

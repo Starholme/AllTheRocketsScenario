@@ -27,17 +27,19 @@ function OarcAutoDeconOnTick()
 end
 
 function OarcAutoDeconOnResourceDepleted(event)
-	if (not global.oarc_decon_miners) then
-		global.oarc_decon_miners = {}
-	end
-    if (event.entity and event.entity.position and event.entity.surface) then
+    if global.ocfg.enable_miner_decon then
+        if (not global.oarc_decon_miners) then
+            global.oarc_decon_miners = {}
+        end
+        if (event.entity and event.entity.position and event.entity.surface) then
 
-        local nearby_miners = event.entity.surface.find_entities_filtered{area = {{event.entity.position.x-1, event.entity.position.y-1},
-                                                                                        {event.entity.position.x+1, event.entity.position.y+1}},
-                                                                            name = {"burner-mining-drill", "electric-mining-drill"}}
+            local nearby_miners = event.entity.surface.find_entities_filtered{area = {{event.entity.position.x-1, event.entity.position.y-1},
+                                                                                            {event.entity.position.x+1, event.entity.position.y+1}},
+                                                                                name = {"burner-mining-drill", "electric-mining-drill"}}
 
-        for i,v in pairs(nearby_miners) do
-            table.insert(global.oarc_decon_miners, v)
+            for i,v in pairs(nearby_miners) do
+                table.insert(global.oarc_decon_miners, v)
+            end
         end
     end
 end
