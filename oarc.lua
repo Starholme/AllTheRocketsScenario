@@ -44,9 +44,13 @@ require("compat/factoriomaps")
 -- Create a new surface so we can modify map settings at the start.
 GAME_SURFACE_NAME="oarc"
 
-commands.add_command("trigger-map-cleanup",
-    "Force immediate removal of all expired chunks (unused chunk removal mod)",
-    RegrowthForceRemoveChunksCmd)
+local function AddCommands()
+    commands.add_command("trigger-map-cleanup",
+        "Force immediate removal of all expired chunks (unused chunk removal mod)",
+        RegrowthForceRemoveChunksCmd)
+end
+
+
 
 --------------------------------------------------------------------------------
 -- ALL EVENT HANLDERS ARE HERE IN ONE PLACE!
@@ -56,7 +60,7 @@ commands.add_command("trigger-map-cleanup",
 -- On Init - only runs once the first
 --   time the game starts
 ----------------------------------------
-script.on_init(function(event)
+local function OnInit(event)
 
     -- FIRST
     InitOarcConfig()
@@ -85,7 +89,7 @@ script.on_init(function(event)
     -- Display starting point text as a display of dominance.
     RenderPermanentGroundText(game.surfaces[GAME_SURFACE_NAME], {x=-15.5,y=-23}, 30, "ATR", {0.9, 0.7, 0.3, 0.8})
     RenderPermanentGroundText(game.surfaces[GAME_SURFACE_NAME], {x=-17.75,y=4}, 8, "OARC    + Clusterio", {0.9, 0.7, 0.3, 0.8})
-end)
+end
 
 local function ScriptOnLoad()
     Compat.handle_factoriomaps()
@@ -294,5 +298,7 @@ return {
         [defines.events.on_chunk_generated] = OnChunkGenerated,
         [defines.events.on_rocket_launched] = OnRocketLaunched
     },
-    on_load = ScriptOnLoad
+    on_load = ScriptOnLoad,
+    on_init = OnInit,
+    add_commands = AddCommands
 }
