@@ -87,24 +87,24 @@ script.on_init(function(event)
     RenderPermanentGroundText(game.surfaces[GAME_SURFACE_NAME], {x=-17.75,y=4}, 8, "OARC    + Clusterio", {0.9, 0.7, 0.3, 0.8})
 end)
 
-script.on_load(function()
-	Compat.handle_factoriomaps()
-end)
+local function ScriptOnLoad()
+    Compat.handle_factoriomaps()
+end
 
 
 ----------------------------------------
 -- Rocket launch event
 -- Used for end game win conditions / unlocking late game stuff
 ----------------------------------------
-script.on_event(defines.events.on_rocket_launched, function(event)
+local function OnRocketLaunched(event)
     RocketLaunchEvent(event)
-end)
+end
 
 
 ----------------------------------------
 -- Chunk Generation
 ----------------------------------------
-script.on_event(defines.events.on_chunk_generated, function(event)
+local function OnChunkGenerated(event)
 
     if (event.surface.name ~= GAME_SURFACE_NAME) then return end
 
@@ -119,13 +119,13 @@ script.on_event(defines.events.on_chunk_generated, function(event)
     SeparateSpawnsGenerateChunk(event)
 
     CreateHoldingPen(event.surface, event.area)
-end)
+end
 
 
 ----------------------------------------
 -- Gui Click
 ----------------------------------------
-script.on_event(defines.events.on_gui_click, function(event)
+local function OnGuiClick(event)
 
     -- Don't interfere with other mod related stuff.
     if (event.element.get_mod() ~= nil) then return end
@@ -150,20 +150,20 @@ script.on_event(defines.events.on_gui_click, function(event)
     end
 
     GameOptionsGuiClick(event)
-end)
+end
 
-script.on_event(defines.events.on_gui_checked_state_changed, function (event)
+local function OnGuiCheckedStateChanged(event)
     SpawnOptsRadioSelect(event)
     SpawnCtrlGuiOptionsSelect(event)
-end)
+end
 
-script.on_event(defines.events.on_gui_selected_tab_changed, function (event)
+local function OnGuiSelectedTabChanged(event)
     TabChangeOarcGui(event)
 
     if global.ocfg.enable_coin_shop then
         TabChangeOarcStore(event)
     end
-end)
+end
 
 ----------------------------------------
 -- Player Events
@@ -287,6 +287,12 @@ return {
         [defines.events.on_player_left_game] = OnPlayerLeftGame,
         [defines.events.on_player_respawned] = OnPlayerRespawned,
         [defines.events.on_player_created] = OnPlayerCreated,
-        [defines.events.on_player_joined_game] = OnPlayerJoinedGame
-    }
+        [defines.events.on_player_joined_game] = OnPlayerJoinedGame,
+        [defines.events.on_gui_selected_tab_changed] = OnGuiSelectedTabChanged,
+        [defines.events.on_gui_checked_state_changed] = OnGuiCheckedStateChanged,
+        [defines.events.on_gui_click] = OnGuiClick,
+        [defines.events.on_chunk_generated] = OnChunkGenerated,
+        [defines.events.on_rocket_launched] = OnRocketLaunched
+    },
+    on_load = ScriptOnLoad
 }
