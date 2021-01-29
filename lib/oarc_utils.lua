@@ -1018,7 +1018,8 @@ function DropGravestoneChests(player)
 end
 
 -- Dump player items into a chest after the body expires.
-function DropGravestoneChestFromCorpse(corpse)
+function DropGravestoneChestFromCorpse(event)
+    local corpse = event.corpse
     if ((corpse == nil) or (corpse.character_corpse_player_index == nil)) then return end
 
     local grave, grave_inv

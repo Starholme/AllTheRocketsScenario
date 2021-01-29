@@ -346,35 +346,6 @@ script.on_event(defines.events.on_unit_group_finished_gathering, function(event)
     end
 end)
 
-----------------------------------------
--- On Corpse Timed Out
--- Save player's stuff so they don't lose it if they can't get to the corpse fast enough.
-----------------------------------------
-script.on_event(defines.events.on_character_corpse_expired, function(event)
-    DropGravestoneChestFromCorpse(event.corpse)
-end)
-
-
-----------------------------------------
--- On Gui Text Change
--- For capturing text entry.
-----------------------------------------
-script.on_event(defines.events.on_gui_text_changed, function(event)
-    NotepadOnGuiTextChange(event)
-end)
-
-
-----------------------------------------
--- On Gui Closed
--- For capturing player escaping custom GUI so we can close it using ESC key.
-----------------------------------------
-script.on_event(defines.events.on_gui_closed, function(event)
-    OarcGuiOnGuiClosedEvent(event)
-    if global.ocfg.enable_coin_shop then
-        OarcStoreOnGuiClosedEvent(event)
-    end
-end)
-
 local function OnGuiClosed(event)
     OarcGuiOnGuiClosedEvent(event)
     OarcStoreOnGuiClosedEvent(event)
@@ -384,6 +355,8 @@ return {
     events = {
         [defines.events.on_resource_depleted] = OarcAutoDeconOnResourceDepleted,
         [defines.events.on_post_entity_died] = CoinsFromEnemiesOnPostEntityDied,
-        [defines.events.on_gui_closed] = OnGuiClosed
+        [defines.events.on_gui_closed] = OnGuiClosed,
+        [defines.events.on_gui_text_changed] = NotepadOnGuiTextChange,
+        [defines.events.on_character_corpse_expired] = DropGravestoneChestFromCorpse
     }
 }
