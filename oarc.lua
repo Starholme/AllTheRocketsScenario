@@ -19,6 +19,7 @@ require("lib/notepad")
 require("lib/map_features")
 require("lib/oarc_buy")
 require("lib/auto_decon_miners")
+local global_chat = require("lib/global_chat")
 
 -- For Philip. I currently do not use this and need to add proper support for
 -- commands like this in the future.
@@ -293,22 +294,6 @@ script.on_event(defines.events.script_raised_built, function(event)
     end
 end)
 
-----------------------------------------
--- Shared chat, so you don't have to type /s
--- But you do lose your player colors across forces.
-----------------------------------------
-script.on_event(defines.events.on_console_chat, function(event)
-    if (event.player_index) then
-        ServerWriteFile("server_chat", game.players[event.player_index].name .. ": " .. event.message .. "\n")
-    end
-    if (global.ocfg.enable_shared_chat) then
-        if (event.player_index ~= nil) then
-            ShareChatBetweenForces(game.players[event.player_index], event.message)
-        end
-    end
-end)
-
-
 local function OnGuiClosed(event)
     OarcGuiOnGuiClosedEvent(event)
     OarcStoreOnGuiClosedEvent(event)
@@ -324,6 +309,7 @@ return {
         [defines.events.on_unit_group_finished_gathering] = OarcModifyEnemyGroup,
         [defines.events.on_biter_base_built] = ModifyEnemySpawnsNearPlayerStartingAreas,
         [defines.events.on_entity_spawned] = ModifyEnemySpawnsNearPlayerStartingAreas,
-        [defines.events.on_research_finished] = LockGoodiesUntilRocketLaunch
+        [defines.events.on_research_finished] = LockGoodiesUntilRocketLaunch,
+        [defines.events.on_console_chat] = global_chat.ChatEvent
     }
 }
