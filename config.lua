@@ -126,6 +126,7 @@ PLAYER_SPAWN_START_ITEMS = {
     ["coal"] = 50,
     ["stone"] = 50,
     ["coin"] = 100,
+    ["steel-plate"] = 50
 }
 
 -- Items provided after EVERY respawn (disabled by default)
